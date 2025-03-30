@@ -1,149 +1,84 @@
-import { mysqlTable, varchar, int, tinyint, datetime, text, timestamp, mysqlEnum } from "drizzle-orm/mysql-core";
-import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
+import { User as PrismaUser, Project as PrismaProject, Service as PrismaService, 
+         CompanyInfo as PrismaCompanyInfo, ContactMessage as PrismaContactMessage,
+         WaitlistEntry as PrismaWaitlistEntry, PageVisit as PrismaPageVisit,
+         FormSubmission as PrismaFormSubmission } from "@prisma/client";
 
-export const users = mysqlTable("users", {
-  id: int("id").primaryKey().autoincrement(),
-  username: varchar("username", { length: 255 }).notNull().unique(),
-  password: varchar("password", { length: 255 }).notNull(),
+// Zod schemas for insertions
+export const insertUserSchema = z.object({
+  username: z.string(),
+  password: z.string(),
 });
 
-// Construction company projects
-export const projects = mysqlTable("projects", {
-  id: int("id").primaryKey().autoincrement(),
-  title: varchar("title", { length: 255 }).notNull(),
-  description: text("description").notNull(),
-  category: varchar("category", { length: 100 }).notNull(), // Residential, Commercial, Industrial, etc.
-  location: varchar("location", { length: 255 }).notNull(),
-  imageUrl: varchar("image_url", { length: 255 }).notNull(),
-  completionDate: varchar("completion_date", { length: 100 }),
-  clientName: varchar("client_name", { length: 255 }),
-  featured: tinyint("featured", { unsigned: true }).default(0),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
+export const insertProjectSchema = z.object({
+  title: z.string(),
+  description: z.string(),
+  category: z.string(),
+  location: z.string(),
+  imageUrl: z.string(),
+  completionDate: z.string().optional(),
+  clientName: z.string().optional(),
+  featured: z.boolean().default(false),
 });
 
-// Construction company services
-export const services = mysqlTable("services", {
-  id: int("id").primaryKey().autoincrement(),
-  title: varchar("title", { length: 255 }).notNull(),
-  description: text("description").notNull(),
-  iconName: varchar("icon_name", { length: 100 }).notNull(), // For rendering the appropriate icon
-  featured: tinyint("featured", { unsigned: true }).default(0),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
+export const insertServiceSchema = z.object({
+  title: z.string(),
+  description: z.string(),
+  iconName: z.string(),
+  featured: z.boolean().default(false),
 });
 
-// Company information (like about us, mission, vision, etc.)
-export const companyInfo = mysqlTable("company_info", {
-  id: int("id").primaryKey().autoincrement(), 
-  section: varchar("section", { length: 100 }).notNull().unique(), // about, mission, vision, etc.
-  content: text("content").notNull(),
-  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+export const insertCompanyInfoSchema = z.object({
+  section: z.string(),
+  content: z.string(),
 });
 
-// Contact messages from users
-export const contactMessages = mysqlTable("contact_messages", {
-  id: int("id").primaryKey().autoincrement(),
-  name: varchar("name", { length: 255 }).notNull(),
-  email: varchar("email", { length: 255 }).notNull(),
-  phone: varchar("phone", { length: 50 }),
-  subject: varchar("subject", { length: 255 }).notNull(),
-  message: text("message").notNull(),
-  status: varchar("status", { length: 50 }).notNull().default("new"), // new, read, replied, etc.
-  createdAt: timestamp("created_at").defaultNow().notNull(),
+export const insertContactMessageSchema = z.object({
+  name: z.string(),
+  email: z.string().email(),
+  phone: z.string().optional(),
+  subject: z.string(),
+  message: z.string(),
 });
 
-export const waitlistEntries = mysqlTable("waitlist_entries", {
-  id: int("id").primaryKey().autoincrement(),
-  name: varchar("name", { length: 255 }).notNull(),
-  email: varchar("email", { length: 255 }).notNull().unique(),
-  acceptsUpdates: tinyint("accepts_updates", { unsigned: true }).notNull().default(1),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
+export const insertWaitlistEntrySchema = z.object({
+  name: z.string(),
+  email: z.string().email(),
+  acceptsUpdates: z.number().optional().default(1),
+  phone: z.string().optional(),
+  company: z.string().optional(),
+  message: z.string().optional(),
 });
 
-export const pageVisits = mysqlTable("page_visits", {
-  id: int("id").primaryKey().autoincrement(),
-  page: varchar("page", { length: 255 }).notNull(),
-  timestamp: timestamp("timestamp").defaultNow().notNull(),
+export const insertPageVisitSchema = z.object({
+  page: z.string(),
 });
 
-export const formSubmissions = mysqlTable("form_submissions", {
-  id: int("id").primaryKey().autoincrement(),
-  formType: varchar("form_type", { length: 100 }).notNull(),
-  timestamp: timestamp("timestamp").defaultNow().notNull(),
-});
-
-// Insert schemas
-export const insertUserSchema = createInsertSchema(users).pick({
-  username: true,
-  password: true,
-});
-
-export const insertProjectSchema = createInsertSchema(projects).pick({
-  title: true,
-  description: true,
-  category: true,
-  location: true,
-  imageUrl: true,
-  completionDate: true,
-  clientName: true,
-  featured: true,
-});
-
-export const insertServiceSchema = createInsertSchema(services).pick({
-  title: true,
-  description: true,
-  iconName: true,
-  featured: true,
-});
-
-export const insertCompanyInfoSchema = createInsertSchema(companyInfo).pick({
-  section: true,
-  content: true,
-});
-
-export const insertContactMessageSchema = createInsertSchema(contactMessages).pick({
-  name: true,
-  email: true,
-  phone: true,
-  subject: true,
-  message: true,
-});
-
-export const insertWaitlistEntrySchema = createInsertSchema(waitlistEntries).pick({
-  name: true,
-  email: true,
-  acceptsUpdates: true,
-});
-
-export const insertPageVisitSchema = createInsertSchema(pageVisits).pick({
-  page: true,
-});
-
-export const insertFormSubmissionSchema = createInsertSchema(formSubmissions).pick({
-  formType: true,
+export const insertFormSubmissionSchema = z.object({
+  formType: z.string(),
 });
 
 // Types
 export type InsertUser = z.infer<typeof insertUserSchema>;
-export type User = typeof users.$inferSelect;
+export type User = PrismaUser;
 
 export type InsertProject = z.infer<typeof insertProjectSchema>;
-export type Project = typeof projects.$inferSelect;
+export type Project = PrismaProject;
 
 export type InsertService = z.infer<typeof insertServiceSchema>;
-export type Service = typeof services.$inferSelect;
+export type Service = PrismaService;
 
 export type InsertCompanyInfo = z.infer<typeof insertCompanyInfoSchema>;
-export type CompanyInfo = typeof companyInfo.$inferSelect;
+export type CompanyInfo = PrismaCompanyInfo;
 
 export type InsertContactMessage = z.infer<typeof insertContactMessageSchema>;
-export type ContactMessage = typeof contactMessages.$inferSelect;
+export type ContactMessage = PrismaContactMessage;
 
 export type InsertWaitlistEntry = z.infer<typeof insertWaitlistEntrySchema>;
-export type WaitlistEntry = typeof waitlistEntries.$inferSelect;
+export type WaitlistEntry = PrismaWaitlistEntry;
 
 export type InsertPageVisit = z.infer<typeof insertPageVisitSchema>;
-export type PageVisit = typeof pageVisits.$inferSelect;
+export type PageVisit = PrismaPageVisit;
 
 export type InsertFormSubmission = z.infer<typeof insertFormSubmissionSchema>;
-export type FormSubmission = typeof formSubmissions.$inferSelect;
+export type FormSubmission = PrismaFormSubmission;

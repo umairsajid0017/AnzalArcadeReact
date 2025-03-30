@@ -106,7 +106,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           imageUrl: result.data.imageUrl,
           completionDate: result.data.completionDate || undefined,
           clientName: result.data.clientName || undefined,
-          featured: result.data.featured === true
+          featured: Boolean(result.data.featured)
         }
       });
       
@@ -209,7 +209,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           title: result.data.title,
           description: result.data.description,
           iconName: result.data.iconName,
-          featured: result.data.featured === true
+          featured: Boolean(result.data.featured)
         }
       });
       

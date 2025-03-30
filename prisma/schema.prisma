@@ -6,8 +6,8 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider = "mysql"
+  url      = env("MYSQL_DATABASE_URL")
 }
 
 // Anzal Arcade Construction Company Models
@@ -90,13 +90,14 @@ model FormSubmission {
 }
 
 model WaitlistEntry {
-  id        Int      @id @default(autoincrement())
-  name      String
-  email     String   @unique
-  phone     String?
-  company   String?
-  message   String?  @db.Text
-  createdAt DateTime @default(now()) @map("created_at")
+  id             Int      @id @default(autoincrement())
+  name           String
+  email          String   @unique
+  phone          String?
+  company        String?
+  message        String?  @db.Text
+  acceptsUpdates Int      @default(0) @map("accepts_updates")
+  createdAt      DateTime @default(now()) @map("created_at")
 
   @@map("waitlist_entries")
 }

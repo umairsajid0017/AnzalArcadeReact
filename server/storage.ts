@@ -1,8 +1,4 @@
 import { 
-  users, 
-  waitlistEntries, 
-  pageVisits, 
-  formSubmissions, 
   type User, 
   type InsertUser, 
   type WaitlistEntry, 
@@ -12,6 +8,7 @@ import {
   type FormSubmission, 
   type InsertFormSubmission 
 } from "@shared/schema";
+import { User as PrismaUser, WaitlistEntry as PrismaWaitlistEntry, PageVisit as PrismaPageVisit, FormSubmission as PrismaFormSubmission } from "@prisma/client";
 
 export interface IStorage {
   getUser(id: number): Promise<User | undefined>;
@@ -69,7 +66,9 @@ export class MemStorage implements IStorage {
 
   async createUser(insertUser: InsertUser): Promise<User> {
     const id = this.currentId.users++;
-    const user: User = { ...insertUser, id };
+    const createdAt = new Date();
+    const updatedAt = new Date();
+    const user: User = { ...insertUser, id, createdAt, updatedAt };
     this.users.set(id, user);
     return user;
   }
@@ -83,7 +82,16 @@ export class MemStorage implements IStorage {
     
     const id = this.currentId.waitlist++;
     const createdAt = new Date();
-    const waitlistEntry: WaitlistEntry = { ...entry, id, createdAt };
+    const waitlistEntry = { 
+      id, 
+      name: entry.name,
+      email: entry.email,
+      phone: entry.phone || null,
+      company: entry.company || null,
+      message: entry.message || null,
+      acceptsUpdates: entry.acceptsUpdates || 0,
+      createdAt 
+    } as WaitlistEntry;
     this.waitlist.set(id, waitlistEntry);
     return waitlistEntry;
   }
@@ -123,23 +131,28 @@ export class MemStorage implements IStorage {
   }
 }
 
-import { db } from './mysql';
-import { eq } from 'drizzle-orm';
+import { prisma } from './prisma';
 
-export class MySQLStorage implements IStorage {
+export class PrismaStorage implements IStorage {
   async getUser(id: number): Promise<User | undefined> {
-    const result = await db.select().from(users).where(eq(users.id, id));
-    return result[0];
+    const result = await prisma.user.findUnique({
+      where: { id }
+    });
+    return result as User | undefined;
   }
 
   async getUserByUsername(username: string): Promise<User | undefined> {
-    const result = await db.select().from(users).where(eq(users.username, username));
-    return result[0];
+    const result = await prisma.user.findUnique({
+      where: { username }
+    });
+    return result as User | undefined;
   }
 
   async createUser(user: InsertUser): Promise<User> {
-    const [result] = await db.insert(users).values(user);
-    return { ...user, id: result.insertId } as User;
+    const result = await prisma.user.create({
+      data: user
+    });
+    return result as User;
   }
   
   async createWaitlistEntry(entry: InsertWaitlistEntry): Promise<WaitlistEntry> {
@@ -149,65 +162,58 @@ export class MySQLStorage implements IStorage {
       throw new Error("Email already registered on waitlist");
     }
     
-    const [result] = await db.insert(waitlistEntries).values({
-      ...entry,
-      acceptsUpdates: entry.acceptsUpdates || 0,
-      createdAt: new Date()
+    const result = await prisma.waitlistEntry.create({
+      data: {
+        name: entry.name,
+        email: entry.email,
+        phone: entry.phone || null,
+        company: entry.company || null,
+        message: entry.message || null,
+        acceptsUpdates: entry.acceptsUpdates || 0
+      }
     });
     
-    return { 
-      ...entry, 
-      id: result.insertId,
-      acceptsUpdates: entry.acceptsUpdates || 0,
-      createdAt: new Date()
-    } as WaitlistEntry;
+    return result as WaitlistEntry;
   }
   
   async getWaitlistEntry(email: string): Promise<WaitlistEntry | undefined> {
-    const result = await db.select().from(waitlistEntries).where(eq(waitlistEntries.email, email));
-    return result[0];
+    const result = await prisma.waitlistEntry.findUnique({
+      where: { email }
+    });
+    return result as WaitlistEntry | undefined;
   }
   
   async getWaitlistEntries(): Promise<WaitlistEntry[]> {
-    return await db.select().from(waitlistEntries);
+    const result = await prisma.waitlistEntry.findMany();
+    return result as WaitlistEntry[];
   }
   
   async recordPageVisit(visit: InsertPageVisit): Promise<PageVisit> {
-    const [result] = await db.insert(pageVisits).values({
-      ...visit,
-      timestamp: new Date()
+    const result = await prisma.pageVisit.create({
+      data: visit
     });
-    
-    return { 
-      ...visit, 
-      id: result.insertId,
-      timestamp: new Date()
-    } as PageVisit;
+    return result as PageVisit;
   }
   
   async recordFormSubmission(submission: InsertFormSubmission): Promise<FormSubmission> {
-    const [result] = await db.insert(formSubmissions).values({
-      ...submission,
-      timestamp: new Date()
+    const result = await prisma.formSubmission.create({
+      data: submission
     });
-    
-    return { 
-      ...submission, 
-      id: result.insertId,
-      timestamp: new Date()
-    } as FormSubmission;
+    return result as FormSubmission;
   }
   
   async getPageVisits(): Promise<PageVisit[]> {
-    return await db.select().from(pageVisits);
+    const result = await prisma.pageVisit.findMany();
+    return result as PageVisit[];
   }
   
   async getFormSubmissions(): Promise<FormSubmission[]> {
-    return await db.select().from(formSubmissions);
+    const result = await prisma.formSubmission.findMany();
+    return result as FormSubmission[];
   }
 }
 
 // Choose which storage implementation to use
 export const storage = process.env.MYSQL_DATABASE_URL 
-  ? new MySQLStorage() 
+  ? new PrismaStorage() 
   : new MemStorage();
