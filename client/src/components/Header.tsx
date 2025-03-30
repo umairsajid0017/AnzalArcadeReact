@@ -23,7 +23,7 @@ export default function Header() {
   };
 
   return (
-    <header className="w-full border-b bg-background z-50 sticky top-0">
+    <header className="w-full border-b bg-primary text-primary-foreground z-50 sticky top-0">
       <div className="container px-4 md:px-6 py-4 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
@@ -35,39 +35,39 @@ export default function Header() {
         {!isMobile && (
           <nav className="flex items-center gap-6">
             <Link href="/">
-              <a className={`text-sm font-medium transition-colors hover:text-primary ${isActive('/') ? 'text-primary' : 'text-foreground/70'}`}>
+              <a className={`text-sm font-medium transition-colors hover:text-white ${isActive('/') ? 'text-white' : 'text-primary-foreground/80'}`}>
                 Home
               </a>
             </Link>
             <Link href="/about">
-              <a className={`text-sm font-medium transition-colors hover:text-primary ${isActive('/about') ? 'text-primary' : 'text-foreground/70'}`}>
+              <a className={`text-sm font-medium transition-colors hover:text-white ${isActive('/about') ? 'text-white' : 'text-primary-foreground/80'}`}>
                 About Us
               </a>
             </Link>
             <Link href="/services">
-              <a className={`text-sm font-medium transition-colors hover:text-primary ${isActive('/services') ? 'text-primary' : 'text-foreground/70'}`}>
+              <a className={`text-sm font-medium transition-colors hover:text-white ${isActive('/services') ? 'text-white' : 'text-primary-foreground/80'}`}>
                 Services
               </a>
             </Link>
             <Link href="/projects">
-              <a className={`text-sm font-medium transition-colors hover:text-primary ${isActive('/projects') ? 'text-primary' : 'text-foreground/70'}`}>
+              <a className={`text-sm font-medium transition-colors hover:text-white ${isActive('/projects') ? 'text-white' : 'text-primary-foreground/80'}`}>
                 Projects
               </a>
             </Link>
             <Link href="/engineer">
-              <a className={`text-sm font-medium transition-colors hover:text-primary ${isActive('/engineer') ? 'text-primary' : 'text-foreground/70'}`}>
+              <a className={`text-sm font-medium transition-colors hover:text-white ${isActive('/engineer') ? 'text-white' : 'text-primary-foreground/80'}`}>
                 Lead Engineer
               </a>
             </Link>
             <Link href="/contact">
-              <Button size="sm">Contact Us</Button>
+              <Button size="sm" variant="secondary" className="text-primary">Contact Us</Button>
             </Link>
           </nav>
         )}
 
         {/* Mobile Menu Button */}
         {isMobile && (
-          <Button variant="ghost" size="icon" onClick={toggleMenu} aria-label="Toggle Menu">
+          <Button variant="ghost" size="icon" onClick={toggleMenu} aria-label="Toggle Menu" className="text-white hover:text-white/80">
             {isOpen ? <XIcon /> : <MenuIcon />}
           </Button>
         )}
@@ -103,7 +103,7 @@ export default function Header() {
               </a>
             </Link>
             <Link href="/contact" onClick={closeMenu}>
-              <Button className="w-full" size="lg">Contact Us</Button>
+              <Button className="w-full" size="lg" variant="default">Contact Us</Button>
             </Link>
           </nav>
         </div>
