@@ -123,4 +123,91 @@ export class MemStorage implements IStorage {
   }
 }
 
-export const storage = new MemStorage();
+import { db } from './mysql';
+import { eq } from 'drizzle-orm';
+
+export class MySQLStorage implements IStorage {
+  async getUser(id: number): Promise<User | undefined> {
+    const result = await db.select().from(users).where(eq(users.id, id));
+    return result[0];
+  }
+
+  async getUserByUsername(username: string): Promise<User | undefined> {
+    const result = await db.select().from(users).where(eq(users.username, username));
+    return result[0];
+  }
+
+  async createUser(user: InsertUser): Promise<User> {
+    const [result] = await db.insert(users).values(user);
+    return { ...user, id: result.insertId } as User;
+  }
+  
+  async createWaitlistEntry(entry: InsertWaitlistEntry): Promise<WaitlistEntry> {
+    // Check if email already exists
+    const existing = await this.getWaitlistEntry(entry.email);
+    if (existing) {
+      throw new Error("Email already registered on waitlist");
+    }
+    
+    const [result] = await db.insert(waitlistEntries).values({
+      ...entry,
+      acceptsUpdates: entry.acceptsUpdates || 0,
+      createdAt: new Date()
+    });
+    
+    return { 
+      ...entry, 
+      id: result.insertId,
+      acceptsUpdates: entry.acceptsUpdates || 0,
+      createdAt: new Date()
+    } as WaitlistEntry;
+  }
+  
+  async getWaitlistEntry(email: string): Promise<WaitlistEntry | undefined> {
+    const result = await db.select().from(waitlistEntries).where(eq(waitlistEntries.email, email));
+    return result[0];
+  }
+  
+  async getWaitlistEntries(): Promise<WaitlistEntry[]> {
+    return await db.select().from(waitlistEntries);
+  }
+  
+  async recordPageVisit(visit: InsertPageVisit): Promise<PageVisit> {
+    const [result] = await db.insert(pageVisits).values({
+      ...visit,
+      timestamp: new Date()
+    });
+    
+    return { 
+      ...visit, 
+      id: result.insertId,
+      timestamp: new Date()
+    } as PageVisit;
+  }
+  
+  async recordFormSubmission(submission: InsertFormSubmission): Promise<FormSubmission> {
+    const [result] = await db.insert(formSubmissions).values({
+      ...submission,
+      timestamp: new Date()
+    });
+    
+    return { 
+      ...submission, 
+      id: result.insertId,
+      timestamp: new Date()
+    } as FormSubmission;
+  }
+  
+  async getPageVisits(): Promise<PageVisit[]> {
+    return await db.select().from(pageVisits);
+  }
+  
+  async getFormSubmissions(): Promise<FormSubmission[]> {
+    return await db.select().from(formSubmissions);
+  }
+}
+
+// Choose which storage implementation to use
+export const storage = process.env.MYSQL_DATABASE_URL 
+  ? new MySQLStorage() 
+  : new MemStorage();
