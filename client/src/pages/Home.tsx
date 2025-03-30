@@ -32,27 +32,61 @@ export default function Home() {
     <div className="min-h-screen flex flex-col">
       <Header />
       <main className="flex-grow">
-        {/* Hero Section */}
-        <section className="relative py-20 md:py-28 bg-primary/10 overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-background/0 z-0"></div>
-          <div className="container px-4 md:px-6 relative z-10">
-            <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
-              <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tighter">
+        {/* Hero Section - Mouse Reactive */}
+        <section className="relative h-[70vh] md:h-[80vh] overflow-hidden">
+          {/* Lansdowne Bridge Background Image */}
+          <div 
+            id="parallax-hero-bg" 
+            className="absolute inset-0 w-full h-full bg-cover bg-center transition-transform duration-300 ease-out scale-105"
+            style={{ 
+              backgroundImage: "url('https://images.unsplash.com/photo-1532989029401-51516a1e9ae3?q=80&w=2071&auto=format&fit=crop')",
+              filter: "brightness(0.7)"
+            }}
+          ></div>
+
+          {/* Overlay Gradient */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent z-0"></div>
+          
+          {/* Content */}
+          <div className="container px-4 md:px-6 relative z-10 h-full flex flex-col justify-center">
+            <div className="flex flex-col items-center text-center max-w-4xl mx-auto text-white">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter mb-6 transition-transform duration-300 ease-out" id="parallax-hero-title">
                 Building Excellence in Every Project
               </h1>
-              <p className="mt-6 text-xl text-muted-foreground max-w-3xl">
-                Anzal Arcade Construction delivers quality, innovative construction solutions for residential, commercial, and industrial projects.
+              <p className="mt-4 text-xl text-white/90 max-w-3xl transition-transform duration-300 ease-out" id="parallax-hero-text">
+                Anzal Arcade Construction delivers quality, innovative construction solutions for power plants, renewable energy, and oil & gas projects.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 mt-8">
-                <Button asChild size="lg">
+              <div className="flex flex-col sm:flex-row gap-4 mt-10">
+                <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-white">
                   <Link href="/projects">Explore Our Projects</Link>
                 </Button>
-                <Button asChild variant="outline" size="lg">
+                <Button asChild variant="outline" size="lg" className="border-white text-white hover:bg-white/10">
                   <Link href="/contact">Get a Free Quote</Link>
                 </Button>
               </div>
             </div>
           </div>
+          
+          {/* Add mouse movement effect script */}
+          <script dangerouslySetInnerHTML={{ __html: `
+            document.addEventListener('DOMContentLoaded', () => {
+              const bg = document.getElementById('parallax-hero-bg');
+              const title = document.getElementById('parallax-hero-title');
+              const text = document.getElementById('parallax-hero-text');
+              
+              document.addEventListener('mousemove', (e) => {
+                const x = e.clientX / window.innerWidth;
+                const y = e.clientY / window.innerHeight;
+                
+                // Subtle background movement
+                bg.style.transform = \`scale(1.05) translate(\${-x * 20}px, \${-y * 20}px)\`;
+                
+                // Even more subtle text movement in opposite direction for depth
+                title.style.transform = \`translate(\${x * 10}px, \${y * 10}px)\`;
+                text.style.transform = \`translate(\${x * 5}px, \${y * 5}px)\`;
+              });
+            });
+          `}} />
         </section>
         
         {/* Stats Section */}
