@@ -1,0 +1,90 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Anzal Arcade Construction Company Models
+
+model User {
+  id        Int      @id @default(autoincrement())
+  username  String   @unique
+  password  String
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("users")
+}
+
+model Project {
+  id             Int      @id @default(autoincrement())
+  title          String
+  description    String
+  category       String
+  location       String
+  imageUrl       String   @map("image_url")
+  completionDate String?  @map("completion_date")
+  clientName     String?  @map("client_name")
+  featured       Boolean  @default(false)
+  createdAt      DateTime @default(now()) @map("created_at")
+  updatedAt      DateTime @updatedAt @map("updated_at")
+
+  @@map("projects")
+}
+
+model Service {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  iconName    String   @map("icon_name")
+  featured    Boolean  @default(false)
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@map("services")
+}
+
+model CompanyInfo {
+  id        Int      @id @default(autoincrement())
+  section   String   @unique
+  content   String   @db.Text
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("company_info")
+}
+
+model ContactMessage {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String
+  phone     String?
+  subject   String
+  message   String   @db.Text
+  status    String   @default("new")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("contact_messages")
+}
+
+model PageVisit {
+  id        Int      @id @default(autoincrement())
+  page      String
+  timestamp DateTime @default(now())
+
+  @@map("page_visits")
+}
+
+model FormSubmission {
+  id        Int      @id @default(autoincrement())
+  formType  String   @map("form_type")
+  timestamp DateTime @default(now())
+
+  @@map("form_submissions")
+}
