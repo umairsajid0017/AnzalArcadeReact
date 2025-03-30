@@ -325,13 +325,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
       
       // Create waitlist entry in Prisma
-      // We'll temporarily create a User record as a substitute
-      // since WaitlistEntry model might not be fully available yet
-      const entry = await prisma.user.create({
-        data: {
-          username: result.data.email,
-          password: "temporary", // This is just a placeholder
-        }
+      const entry = await prisma.waitlistEntry.create({
+        data: result.data
       });
       
       // Record form submission for analytics
@@ -344,7 +339,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
         message: 'Successfully joined the waitlist',
         data: {
           id: entry.id,
-          username: entry.username
+          name: entry.name,
+          email: entry.email
         }
       });
     } catch (error) {

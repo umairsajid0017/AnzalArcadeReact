@@ -1,61 +1,193 @@
 import { Link } from "wouter";
-import Logo from "./Logo";
-import { Twitter, Linkedin } from "lucide-react";
+import { Logo } from "@/components/Logo";
+import { MapPinIcon, PhoneIcon, MailIcon, FacebookIcon, TwitterIcon, InstagramIcon, LinkedinIcon } from "lucide-react";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
-  
+
   return (
-    <footer className="bg-slate-900 text-white py-12">
-      <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <footer className="bg-muted/30 border-t">
+      <div className="container px-4 md:px-6 py-12 md:py-16">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div className="col-span-1 md:col-span-2">
-            <div className="flex items-center">
+          {/* Company Info */}
+          <div className="space-y-4">
+            <div className="flex items-center gap-2">
               <Logo />
+              <span className="font-bold text-xl">Anzal Arcade</span>
             </div>
-            <p className="mt-4 text-slate-400 max-w-md">
-              QuantumLeap is revolutionizing how teams collaborate, communicate, and complete projects with our innovative productivity platform.
+            <p className="text-muted-foreground">
+              Building excellence in every project since 2010. Quality construction solutions for residential, commercial, and industrial needs.
             </p>
-            <div className="mt-6 flex space-x-4">
-              <a href="#" className="text-slate-400 hover:text-white transition-colors">
-                <span className="sr-only">Twitter</span>
-                <Twitter className="h-6 w-6" />
+            <div className="flex space-x-4">
+              <a 
+                href="https://facebook.com" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                aria-label="Facebook"
+                className="text-muted-foreground hover:text-primary"
+              >
+                <FacebookIcon className="h-5 w-5" />
               </a>
-              <a href="#" className="text-slate-400 hover:text-white transition-colors">
-                <span className="sr-only">LinkedIn</span>
-                <Linkedin className="h-6 w-6" />
+              <a 
+                href="https://twitter.com" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                aria-label="Twitter"
+                className="text-muted-foreground hover:text-primary"
+              >
+                <TwitterIcon className="h-5 w-5" />
+              </a>
+              <a 
+                href="https://instagram.com" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+                className="text-muted-foreground hover:text-primary"
+              >
+                <InstagramIcon className="h-5 w-5" />
+              </a>
+              <a 
+                href="https://linkedin.com" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                aria-label="LinkedIn"
+                className="text-muted-foreground hover:text-primary"
+              >
+                <LinkedinIcon className="h-5 w-5" />
               </a>
             </div>
           </div>
-
+          
+          {/* Quick Links */}
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider">Product</h3>
-            <ul className="mt-4 space-y-2">
-              <li><a href="#features" className="text-slate-400 hover:text-white transition-colors">Features</a></li>
-              <li><a href="#" className="text-slate-400 hover:text-white transition-colors">Pricing</a></li>
-              <li><a href="#" className="text-slate-400 hover:text-white transition-colors">Testimonials</a></li>
-              <li><a href="#waitlist" className="text-slate-400 hover:text-white transition-colors">Early Access</a></li>
+            <h3 className="font-bold text-lg mb-4">Quick Links</h3>
+            <ul className="space-y-2">
+              <li>
+                <Link href="/">
+                  <a className="text-muted-foreground hover:text-primary transition-colors">
+                    Home
+                  </a>
+                </Link>
+              </li>
+              <li>
+                <Link href="/about">
+                  <a className="text-muted-foreground hover:text-primary transition-colors">
+                    About Us
+                  </a>
+                </Link>
+              </li>
+              <li>
+                <Link href="/services">
+                  <a className="text-muted-foreground hover:text-primary transition-colors">
+                    Services
+                  </a>
+                </Link>
+              </li>
+              <li>
+                <Link href="/projects">
+                  <a className="text-muted-foreground hover:text-primary transition-colors">
+                    Projects
+                  </a>
+                </Link>
+              </li>
+              <li>
+                <Link href="/contact">
+                  <a className="text-muted-foreground hover:text-primary transition-colors">
+                    Contact Us
+                  </a>
+                </Link>
+              </li>
             </ul>
           </div>
-
+          
+          {/* Services */}
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider">Company</h3>
-            <ul className="mt-4 space-y-2">
-              <li><a href="#" className="text-slate-400 hover:text-white transition-colors">About</a></li>
-              <li><a href="#" className="text-slate-400 hover:text-white transition-colors">Careers</a></li>
-              <li><a href="#" className="text-slate-400 hover:text-white transition-colors">Blog</a></li>
-              <li><a href="#" className="text-slate-400 hover:text-white transition-colors">Contact</a></li>
+            <h3 className="font-bold text-lg mb-4">Our Services</h3>
+            <ul className="space-y-2">
+              <li>
+                <Link href="/services">
+                  <a className="text-muted-foreground hover:text-primary transition-colors">
+                    Residential Construction
+                  </a>
+                </Link>
+              </li>
+              <li>
+                <Link href="/services">
+                  <a className="text-muted-foreground hover:text-primary transition-colors">
+                    Commercial Construction
+                  </a>
+                </Link>
+              </li>
+              <li>
+                <Link href="/services">
+                  <a className="text-muted-foreground hover:text-primary transition-colors">
+                    Industrial Construction
+                  </a>
+                </Link>
+              </li>
+              <li>
+                <Link href="/services">
+                  <a className="text-muted-foreground hover:text-primary transition-colors">
+                    Renovation & Remodeling
+                  </a>
+                </Link>
+              </li>
+              <li>
+                <Link href="/services">
+                  <a className="text-muted-foreground hover:text-primary transition-colors">
+                    Construction Management
+                  </a>
+                </Link>
+              </li>
+            </ul>
+          </div>
+          
+          {/* Contact Info */}
+          <div>
+            <h3 className="font-bold text-lg mb-4">Contact Information</h3>
+            <ul className="space-y-4">
+              <li className="flex items-start gap-3">
+                <MapPinIcon className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                <span className="text-muted-foreground">
+                  123 Construction Avenue, Building District, City, State 12345
+                </span>
+              </li>
+              <li className="flex items-center gap-3">
+                <PhoneIcon className="h-5 w-5 text-primary flex-shrink-0" />
+                <a href="tel:+1234567890" className="text-muted-foreground hover:text-primary transition-colors">
+                  (123) 456-7890
+                </a>
+              </li>
+              <li className="flex items-center gap-3">
+                <MailIcon className="h-5 w-5 text-primary flex-shrink-0" />
+                <a href="mailto:info@anzalarcade.com" className="text-muted-foreground hover:text-primary transition-colors">
+                  info@anzalarcade.com
+                </a>
+              </li>
             </ul>
           </div>
         </div>
-
-        <div className="mt-12 border-t border-slate-700 pt-8 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-slate-400 text-sm">
-            &copy; {currentYear} QuantumLeap, Inc. All rights reserved.
+        
+        <div className="border-t mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+          <p className="text-muted-foreground text-sm">
+            &copy; {currentYear} Anzal Arcade Construction. All rights reserved.
           </p>
-          <div className="mt-4 md:mt-0 flex space-x-6">
-            <a href="#" className="text-slate-400 text-sm hover:text-white transition-colors">Privacy Policy</a>
-            <a href="#" className="text-slate-400 text-sm hover:text-white transition-colors">Terms of Service</a>
+          <div className="flex gap-6 mt-4 md:mt-0">
+            <Link href="/about">
+              <a className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                Privacy Policy
+              </a>
+            </Link>
+            <Link href="/about">
+              <a className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                Terms of Service
+              </a>
+            </Link>
+            <Link href="/about">
+              <a className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                Cookie Policy
+              </a>
+            </Link>
           </div>
         </div>
       </div>

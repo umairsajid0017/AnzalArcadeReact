@@ -1,84 +1,103 @@
 import { useState } from "react";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
+import { useIsMobile } from "@/hooks/use-mobile";
 import { Button } from "@/components/ui/button";
-import Logo from "./Logo";
+import { Logo } from "@/components/Logo";
+import { MenuIcon, XIcon } from "lucide-react";
 
 export default function Header() {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
+  const [isOpen, setIsOpen] = useState(false);
+  const isMobile = useIsMobile();
+  const [location] = useLocation();
+
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
   };
-  
+
+  const closeMenu = () => {
+    setIsOpen(false);
+  };
+
+  const isActive = (path: string) => {
+    return location === path;
+  };
+
   return (
-    <header className="fixed top-0 left-0 right-0 bg-white/80 backdrop-blur-md z-50 border-b border-slate-200">
-      <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          <div className="flex items-center">
-            <Link href="/" aria-label="QuantumLeap">
-              <Logo />
+    <header className="w-full border-b bg-background z-50 sticky top-0">
+      <div className="container px-4 md:px-6 py-4 flex items-center justify-between">
+        {/* Logo */}
+        <Link href="/" className="flex items-center gap-2">
+          <Logo />
+          <span className="font-bold text-xl">Anzal Arcade</span>
+        </Link>
+
+        {/* Desktop Navigation */}
+        {!isMobile && (
+          <nav className="flex items-center gap-6">
+            <Link href="/">
+              <a className={`text-sm font-medium transition-colors hover:text-primary ${isActive('/') ? 'text-primary' : 'text-foreground/70'}`}>
+                Home
+              </a>
             </Link>
-          </div>
-          
-          <nav className="hidden md:flex space-x-8">
-            <a href="#features" className="text-slate-500 hover:text-primary font-medium transition-colors">
-              Features
-            </a>
-            <a href="#how-it-works" className="text-slate-500 hover:text-primary font-medium transition-colors">
-              How it Works
-            </a>
-            <a href="#waitlist" className="text-slate-500 hover:text-primary font-medium transition-colors">
-              Join Waitlist
-            </a>
+            <Link href="/about">
+              <a className={`text-sm font-medium transition-colors hover:text-primary ${isActive('/about') ? 'text-primary' : 'text-foreground/70'}`}>
+                About Us
+              </a>
+            </Link>
+            <Link href="/services">
+              <a className={`text-sm font-medium transition-colors hover:text-primary ${isActive('/services') ? 'text-primary' : 'text-foreground/70'}`}>
+                Services
+              </a>
+            </Link>
+            <Link href="/projects">
+              <a className={`text-sm font-medium transition-colors hover:text-primary ${isActive('/projects') ? 'text-primary' : 'text-foreground/70'}`}>
+                Projects
+              </a>
+            </Link>
+            <Link href="/contact">
+              <Button size="sm">Contact Us</Button>
+            </Link>
           </nav>
-          
-          <div className="flex items-center">
-            <a href="#waitlist" className="hidden md:inline-flex">
-              <Button className="shadow-[0_4px_6px_-1px_rgba(59,130,246,0.3)]">
-                Get Early Access
-              </Button>
-            </a>
-            <button 
-              type="button" 
-              className="inline-flex md:hidden items-center justify-center p-2 rounded-md text-slate-500 hover:text-primary" 
-              aria-label="Main menu" 
-              aria-expanded={isMobileMenuOpen}
-              onClick={toggleMobileMenu}
-            >
-              <svg className="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            </button>
-          </div>
-        </div>
+        )}
+
+        {/* Mobile Menu Button */}
+        {isMobile && (
+          <Button variant="ghost" size="icon" onClick={toggleMenu} aria-label="Toggle Menu">
+            {isOpen ? <XIcon /> : <MenuIcon />}
+          </Button>
+        )}
       </div>
-      
-      {/* Mobile menu */}
-      <div className={`md:hidden bg-white border-b border-slate-200 ${isMobileMenuOpen ? 'block' : 'hidden'}`}>
-        <div className="px-2 pt-2 pb-3 space-y-1">
-          <a 
-            href="#features" 
-            className="block px-3 py-2 rounded-md text-base font-medium text-slate-500 hover:text-primary hover:bg-slate-50"
-            onClick={() => setIsMobileMenuOpen(false)}
-          >
-            Features
-          </a>
-          <a 
-            href="#how-it-works" 
-            className="block px-3 py-2 rounded-md text-base font-medium text-slate-500 hover:text-primary hover:bg-slate-50"
-            onClick={() => setIsMobileMenuOpen(false)}
-          >
-            How it Works
-          </a>
-          <a 
-            href="#waitlist" 
-            className="block px-3 py-2 rounded-md text-base font-medium text-slate-500 hover:text-primary hover:bg-slate-50"
-            onClick={() => setIsMobileMenuOpen(false)}
-          >
-            Join Waitlist
-          </a>
+
+      {/* Mobile Navigation Drawer */}
+      {isMobile && (
+        <div className={`fixed inset-0 bg-background z-40 transform transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : 'translate-x-full'}`} style={{ top: '65px' }}>
+          <nav className="flex flex-col p-6 space-y-6">
+            <Link href="/" onClick={closeMenu}>
+              <a className={`text-lg font-medium transition-colors hover:text-primary ${isActive('/') ? 'text-primary' : 'text-foreground/70'}`}>
+                Home
+              </a>
+            </Link>
+            <Link href="/about" onClick={closeMenu}>
+              <a className={`text-lg font-medium transition-colors hover:text-primary ${isActive('/about') ? 'text-primary' : 'text-foreground/70'}`}>
+                About Us
+              </a>
+            </Link>
+            <Link href="/services" onClick={closeMenu}>
+              <a className={`text-lg font-medium transition-colors hover:text-primary ${isActive('/services') ? 'text-primary' : 'text-foreground/70'}`}>
+                Services
+              </a>
+            </Link>
+            <Link href="/projects" onClick={closeMenu}>
+              <a className={`text-lg font-medium transition-colors hover:text-primary ${isActive('/projects') ? 'text-primary' : 'text-foreground/70'}`}>
+                Projects
+              </a>
+            </Link>
+            <Link href="/contact" onClick={closeMenu}>
+              <Button className="w-full" size="lg">Contact Us</Button>
+            </Link>
+          </nav>
         </div>
-      </div>
+      )}
     </header>
   );
 }
