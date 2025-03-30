@@ -39,7 +39,7 @@ export default function Home() {
             id="parallax-hero-bg" 
             className="absolute inset-0 w-full h-full bg-cover bg-center transition-transform duration-300 ease-out scale-105"
             style={{ 
-              backgroundImage: "url('https://images.unsplash.com/photo-1532989029401-51516a1e9ae3?q=80&w=2071&auto=format&fit=crop')",
+              backgroundImage: "url('https://images.unsplash.com/photo-1508450859948-4e04fabaa4ea?q=80&w=1464&auto=format&fit=crop')",
               filter: "brightness(0.7)"
             }}
           ></div>
