@@ -54,6 +54,11 @@ export default function Header() {
                 Projects
               </a>
             </Link>
+            <Link href="/engineer">
+              <a className={`text-sm font-medium transition-colors hover:text-primary ${isActive('/engineer') ? 'text-primary' : 'text-foreground/70'}`}>
+                Lead Engineer
+              </a>
+            </Link>
             <Link href="/contact">
               <Button size="sm">Contact Us</Button>
             </Link>
@@ -90,6 +95,11 @@ export default function Header() {
             <Link href="/projects" onClick={closeMenu}>
               <a className={`text-lg font-medium transition-colors hover:text-primary ${isActive('/projects') ? 'text-primary' : 'text-foreground/70'}`}>
                 Projects
+              </a>
+            </Link>
+            <Link href="/engineer" onClick={closeMenu}>
+              <a className={`text-lg font-medium transition-colors hover:text-primary ${isActive('/engineer') ? 'text-primary' : 'text-foreground/70'}`}>
+                Lead Engineer
               </a>
             </Link>
             <Link href="/contact" onClick={closeMenu}>
