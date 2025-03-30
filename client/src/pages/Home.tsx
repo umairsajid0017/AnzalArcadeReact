@@ -367,6 +367,206 @@ export default function Home() {
           </div>
         </section>
         
+        {/* Industries We Serve - Animated Section */}
+        <section className="py-12 md:py-24 bg-gradient-to-r from-primary/5 to-primary/10 overflow-hidden">
+          <div className="container px-4 md:px-6">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold mb-4">Industries We Serve</h2>
+              <p className="text-muted-foreground max-w-3xl mx-auto">
+                With 15 years of expertise, we specialize in construction solutions for these key sectors
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {/* Industry Card 1 - Renewable Energy */}
+              <div className="bg-white rounded-lg shadow-lg overflow-hidden transform transition-all duration-300 hover:scale-105 hover:shadow-xl">
+                <div className="h-48 overflow-hidden relative">
+                  <img 
+                    src="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=800&auto=format&fit=crop&q=60"
+                    alt="Renewable Energy" 
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
+                    <h3 className="text-white text-xl font-bold p-6">Renewable Energy</h3>
+                  </div>
+                </div>
+                <div className="p-6">
+                  <p className="text-muted-foreground mb-4">
+                    Building sustainable future with solar plants, wind farms, and hydropower facilities that reduce environmental impact.
+                  </p>
+                  <Button variant="outline" size="sm" asChild>
+                    <Link href="/services">Learn More</Link>
+                  </Button>
+                </div>
+              </div>
+              
+              {/* Industry Card 2 - Power Plants */}
+              <div className="bg-white rounded-lg shadow-lg overflow-hidden transform transition-all duration-300 hover:scale-105 hover:shadow-xl">
+                <div className="h-48 overflow-hidden relative">
+                  <img 
+                    src="https://images.unsplash.com/photo-1537462715879-360eeb61a0ad?w=800&auto=format&fit=crop&q=60"
+                    alt="Power Plants" 
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
+                    <h3 className="text-white text-xl font-bold p-6">Power Plants</h3>
+                  </div>
+                </div>
+                <div className="p-6">
+                  <p className="text-muted-foreground mb-4">
+                    Construction and maintenance of power generation facilities with a focus on efficiency and safety standards.
+                  </p>
+                  <Button variant="outline" size="sm" asChild>
+                    <Link href="/services">Learn More</Link>
+                  </Button>
+                </div>
+              </div>
+              
+              {/* Industry Card 3 - Oil & Gas */}
+              <div className="bg-white rounded-lg shadow-lg overflow-hidden transform transition-all duration-300 hover:scale-105 hover:shadow-xl">
+                <div className="h-48 overflow-hidden relative">
+                  <img 
+                    src="https://images.unsplash.com/photo-1610459621008-63f40d6bc722?w=800&auto=format&fit=crop&q=60"
+                    alt="Oil & Gas" 
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
+                    <h3 className="text-white text-xl font-bold p-6">Oil & Gas</h3>
+                  </div>
+                </div>
+                <div className="p-6">
+                  <p className="text-muted-foreground mb-4">
+                    Specialized construction for refineries, pipelines, and processing facilities that meet strict industry regulations.
+                  </p>
+                  <Button variant="outline" size="sm" asChild>
+                    <Link href="/services">Learn More</Link>
+                  </Button>
+                </div>
+              </div>
+              
+              {/* Industry Card 4 - Medical & Healthcare */}
+              <div className="bg-white rounded-lg shadow-lg overflow-hidden transform transition-all duration-300 hover:scale-105 hover:shadow-xl">
+                <div className="h-48 overflow-hidden relative">
+                  <img 
+                    src="https://images.unsplash.com/photo-1516549655169-df83a0774514?w=800&auto=format&fit=crop&q=60"
+                    alt="Medical & Healthcare" 
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
+                    <h3 className="text-white text-xl font-bold p-6">Medical & Healthcare</h3>
+                  </div>
+                </div>
+                <div className="p-6">
+                  <p className="text-muted-foreground mb-4">
+                    Construction of hospitals, clinics, and healthcare facilities with precision attention to specialized requirements.
+                  </p>
+                  <Button variant="outline" size="sm" asChild>
+                    <Link href="/services">Learn More</Link>
+                  </Button>
+                </div>
+              </div>
+              
+              {/* Industry Card 5 - Infrastructure */}
+              <div className="bg-white rounded-lg shadow-lg overflow-hidden transform transition-all duration-300 hover:scale-105 hover:shadow-xl">
+                <div className="h-48 overflow-hidden relative">
+                  <img 
+                    src="https://images.unsplash.com/photo-1545630478-cf5a6202f885?w=800&auto=format&fit=crop&q=60"
+                    alt="Infrastructure" 
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
+                    <h3 className="text-white text-xl font-bold p-6">Infrastructure</h3>
+                  </div>
+                </div>
+                <div className="p-6">
+                  <p className="text-muted-foreground mb-4">
+                    Development of roads, bridges, and public facilities that connect communities and support economic growth.
+                  </p>
+                  <Button variant="outline" size="sm" asChild>
+                    <Link href="/services">Learn More</Link>
+                  </Button>
+                </div>
+              </div>
+              
+              {/* Industry Card 6 - Commercial Buildings */}
+              <div className="bg-white rounded-lg shadow-lg overflow-hidden transform transition-all duration-300 hover:scale-105 hover:shadow-xl">
+                <div className="h-48 overflow-hidden relative">
+                  <img 
+                    src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800&auto=format&fit=crop&q=60"
+                    alt="Commercial Buildings" 
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
+                    <h3 className="text-white text-xl font-bold p-6">Commercial Buildings</h3>
+                  </div>
+                </div>
+                <div className="p-6">
+                  <p className="text-muted-foreground mb-4">
+                    Creating functional and attractive office spaces, retail centers, and multi-use commercial properties.
+                  </p>
+                  <Button variant="outline" size="sm" asChild>
+                    <Link href="/services">Learn More</Link>
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        
+        {/* Our Clients Section with Animation */}
+        <section className="py-12 md:py-24 bg-white">
+          <div className="container px-4 md:px-6">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold mb-4">Our Trusted Clients</h2>
+              <p className="text-muted-foreground max-w-3xl mx-auto">
+                Proud to work with these organizations on impactful construction projects
+              </p>
+            </div>
+            
+            <div className="flex flex-wrap justify-center items-center gap-8 md:gap-16">
+              <div className="w-32 h-32 flex items-center justify-center p-4 grayscale transition-all duration-300 hover:grayscale-0 hover:scale-110">
+                <img 
+                  src="https://placehold.co/200x200/e2e8f0/64748b?text=Regional+Blood+Centre" 
+                  alt="Regional Blood Centre Sukkur" 
+                  className="max-w-full max-h-full"
+                />
+              </div>
+              
+              <div className="w-32 h-32 flex items-center justify-center p-4 grayscale transition-all duration-300 hover:grayscale-0 hover:scale-110">
+                <img 
+                  src="https://placehold.co/200x200/e2e8f0/64748b?text=Matrix" 
+                  alt="Matrix Management – Lahore" 
+                  className="max-w-full max-h-full"
+                />
+              </div>
+              
+              <div className="w-32 h-32 flex items-center justify-center p-4 grayscale transition-all duration-300 hover:grayscale-0 hover:scale-110">
+                <img 
+                  src="https://placehold.co/200x200/e2e8f0/64748b?text=UNDP" 
+                  alt="UNDP" 
+                  className="max-w-full max-h-full"
+                />
+              </div>
+              
+              <div className="w-32 h-32 flex items-center justify-center p-4 grayscale transition-all duration-300 hover:grayscale-0 hover:scale-110">
+                <img 
+                  src="https://placehold.co/200x200/e2e8f0/64748b?text=Client+4" 
+                  alt="Client 4" 
+                  className="max-w-full max-h-full"
+                />
+              </div>
+              
+              <div className="w-32 h-32 flex items-center justify-center p-4 grayscale transition-all duration-300 hover:grayscale-0 hover:scale-110">
+                <img 
+                  src="https://placehold.co/200x200/e2e8f0/64748b?text=Client+5" 
+                  alt="Client 5" 
+                  className="max-w-full max-h-full"
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+        
         {/* CTA Section */}
         <section className="py-16 bg-primary text-primary-foreground">
           <div className="container px-4 md:px-6">

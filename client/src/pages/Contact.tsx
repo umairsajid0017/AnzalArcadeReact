@@ -44,13 +44,7 @@ export default function Contact() {
   // Define the mutation for form submission
   const { mutate, isPending } = useMutation({
     mutationFn: async (data: ContactFormValues) => {
-      return apiRequest('/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      } as RequestInit);
+      return apiRequest('POST', '/api/contact', data);
     },
     onSuccess: () => {
       toast({

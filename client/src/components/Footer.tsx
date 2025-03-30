@@ -6,7 +6,7 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-muted/30 border-t">
+    <footer className="bg-black text-white border-t border-gray-800">
       <div className="container px-4 md:px-6 py-12 md:py-16">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Company Info */}
@@ -15,8 +15,8 @@ export default function Footer() {
               <Logo />
               <span className="font-bold text-xl">Anzal Arcade</span>
             </div>
-            <p className="text-muted-foreground">
-              Building excellence in every project since 2010. Quality construction solutions for residential, commercial, and industrial needs.
+            <p className="text-gray-300">
+              Building excellence in every project since 2010. Quality construction solutions for renewable energy, power plants, and oil & gas projects.
             </p>
             <div className="flex space-x-4">
               <a 
@@ -24,7 +24,7 @@ export default function Footer() {
                 target="_blank" 
                 rel="noopener noreferrer"
                 aria-label="Facebook"
-                className="text-muted-foreground hover:text-primary"
+                className="text-gray-400 hover:text-primary"
               >
                 <FacebookIcon className="h-5 w-5" />
               </a>
@@ -33,7 +33,7 @@ export default function Footer() {
                 target="_blank" 
                 rel="noopener noreferrer"
                 aria-label="Twitter"
-                className="text-muted-foreground hover:text-primary"
+                className="text-gray-400 hover:text-primary"
               >
                 <TwitterIcon className="h-5 w-5" />
               </a>
@@ -42,7 +42,7 @@ export default function Footer() {
                 target="_blank" 
                 rel="noopener noreferrer"
                 aria-label="Instagram"
-                className="text-muted-foreground hover:text-primary"
+                className="text-gray-400 hover:text-primary"
               >
                 <InstagramIcon className="h-5 w-5" />
               </a>
@@ -51,7 +51,7 @@ export default function Footer() {
                 target="_blank" 
                 rel="noopener noreferrer"
                 aria-label="LinkedIn"
-                className="text-muted-foreground hover:text-primary"
+                className="text-gray-400 hover:text-primary"
               >
                 <LinkedinIcon className="h-5 w-5" />
               </a>
@@ -60,39 +60,39 @@ export default function Footer() {
           
           {/* Quick Links */}
           <div>
-            <h3 className="font-bold text-lg mb-4">Quick Links</h3>
+            <h3 className="font-bold text-lg mb-4 text-white">Quick Links</h3>
             <ul className="space-y-2">
               <li>
                 <Link href="/">
-                  <a className="text-muted-foreground hover:text-primary transition-colors">
+                  <a className="text-gray-300 hover:text-primary transition-colors">
                     Home
                   </a>
                 </Link>
               </li>
               <li>
                 <Link href="/about">
-                  <a className="text-muted-foreground hover:text-primary transition-colors">
+                  <a className="text-gray-300 hover:text-primary transition-colors">
                     About Us
                   </a>
                 </Link>
               </li>
               <li>
                 <Link href="/services">
-                  <a className="text-muted-foreground hover:text-primary transition-colors">
+                  <a className="text-gray-300 hover:text-primary transition-colors">
                     Services
                   </a>
                 </Link>
               </li>
               <li>
                 <Link href="/projects">
-                  <a className="text-muted-foreground hover:text-primary transition-colors">
+                  <a className="text-gray-300 hover:text-primary transition-colors">
                     Projects
                   </a>
                 </Link>
               </li>
               <li>
                 <Link href="/contact">
-                  <a className="text-muted-foreground hover:text-primary transition-colors">
+                  <a className="text-gray-300 hover:text-primary transition-colors">
                     Contact Us
                   </a>
                 </Link>
@@ -102,40 +102,40 @@ export default function Footer() {
           
           {/* Services */}
           <div>
-            <h3 className="font-bold text-lg mb-4">Our Services</h3>
+            <h3 className="font-bold text-lg mb-4 text-white">Our Services</h3>
             <ul className="space-y-2">
               <li>
                 <Link href="/services">
-                  <a className="text-muted-foreground hover:text-primary transition-colors">
-                    Residential Construction
+                  <a className="text-gray-300 hover:text-primary transition-colors">
+                    Quality Assurance & Quality Control
                   </a>
                 </Link>
               </li>
               <li>
                 <Link href="/services">
-                  <a className="text-muted-foreground hover:text-primary transition-colors">
-                    Commercial Construction
+                  <a className="text-gray-300 hover:text-primary transition-colors">
+                    Inspections
                   </a>
                 </Link>
               </li>
               <li>
                 <Link href="/services">
-                  <a className="text-muted-foreground hover:text-primary transition-colors">
-                    Industrial Construction
+                  <a className="text-gray-300 hover:text-primary transition-colors">
+                    Audits
                   </a>
                 </Link>
               </li>
               <li>
                 <Link href="/services">
-                  <a className="text-muted-foreground hover:text-primary transition-colors">
-                    Renovation & Remodeling
+                  <a className="text-gray-300 hover:text-primary transition-colors">
+                    Project Management
                   </a>
                 </Link>
               </li>
               <li>
                 <Link href="/services">
-                  <a className="text-muted-foreground hover:text-primary transition-colors">
-                    Construction Management
+                  <a className="text-gray-300 hover:text-primary transition-colors">
+                    Renewable Energy Solutions
                   </a>
                 </Link>
               </li>
@@ -144,23 +144,23 @@ export default function Footer() {
           
           {/* Contact Info */}
           <div>
-            <h3 className="font-bold text-lg mb-4">Contact Information</h3>
+            <h3 className="font-bold text-lg mb-4 text-white">Contact Information</h3>
             <ul className="space-y-4">
               <li className="flex items-start gap-3">
                 <MapPinIcon className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
-                <span className="text-muted-foreground">
-                  123 Construction Avenue, Building District, City, State 12345
+                <span className="text-gray-300">
+                  Pakistan Engineering Council Office, Sindh Building Control Authority
                 </span>
               </li>
               <li className="flex items-center gap-3">
                 <PhoneIcon className="h-5 w-5 text-primary flex-shrink-0" />
-                <a href="tel:+1234567890" className="text-muted-foreground hover:text-primary transition-colors">
-                  (123) 456-7890
+                <a href="tel:+923000000000" className="text-gray-300 hover:text-primary transition-colors">
+                  +92 300 000 0000
                 </a>
               </li>
               <li className="flex items-center gap-3">
                 <MailIcon className="h-5 w-5 text-primary flex-shrink-0" />
-                <a href="mailto:info@anzalarcade.com" className="text-muted-foreground hover:text-primary transition-colors">
+                <a href="mailto:info@anzalarcade.com" className="text-gray-300 hover:text-primary transition-colors">
                   info@anzalarcade.com
                 </a>
               </li>
@@ -168,23 +168,23 @@ export default function Footer() {
           </div>
         </div>
         
-        <div className="border-t mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-muted-foreground text-sm">
+        <div className="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+          <p className="text-gray-400 text-sm">
             &copy; {currentYear} Anzal Arcade Construction. All rights reserved.
           </p>
           <div className="flex gap-6 mt-4 md:mt-0">
             <Link href="/about">
-              <a className="text-sm text-muted-foreground hover:text-primary transition-colors">
+              <a className="text-sm text-gray-400 hover:text-primary transition-colors">
                 Privacy Policy
               </a>
             </Link>
             <Link href="/about">
-              <a className="text-sm text-muted-foreground hover:text-primary transition-colors">
+              <a className="text-sm text-gray-400 hover:text-primary transition-colors">
                 Terms of Service
               </a>
             </Link>
             <Link href="/about">
-              <a className="text-sm text-muted-foreground hover:text-primary transition-colors">
+              <a className="text-sm text-gray-400 hover:text-primary transition-colors">
                 Cookie Policy
               </a>
             </Link>

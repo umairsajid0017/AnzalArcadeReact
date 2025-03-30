@@ -1,6 +1,7 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { prisma } from "./prisma";
+import { storage } from "./storage";
 import { 
   insertWaitlistEntrySchema, 
   insertPageVisitSchema, 
@@ -324,10 +325,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
       }
       
-      // Create waitlist entry in Prisma
-      const entry = await prisma.waitlistEntry.create({
-        data: result.data
-      });
+      // Create waitlist entry in database (using storage interface)
+      const entry = await storage.createWaitlistEntry(result.data);
       
       // Record form submission for analytics
       await prisma.formSubmission.create({
