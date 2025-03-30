@@ -88,3 +88,15 @@ model FormSubmission {
 
   @@map("form_submissions")
 }
+
+model WaitlistEntry {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  phone     String?
+  company   String?
+  message   String?  @db.Text
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("waitlist_entries")
+}
